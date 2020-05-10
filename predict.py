@@ -2,6 +2,8 @@
 from joblib import load
 from preprocess import prep_data
 import pandas as pd
+from sklearn.metrics import mean_squared_error, r2_score
+
 
 def predict_from_csv(path_to_csv):
 
@@ -14,16 +16,26 @@ def predict_from_csv(path_to_csv):
 
     return predictions
 
+
 if __name__ == "__main__":
-    predictions = predict_from_csv("fish_holdout_demo.csv")
-    # print(predictions)
-######
+    predictions = predict_from_csv("data/fish_holdout_demo.csv")
+    y_truth = pd.read_csv("data/fish_holdout_demo.csv")["Weight"].values
 
-### WE WRITE THIS ###
-    from sklearn.metrics import mean_squared_error
-    ho_predictions = predict_from_csv("fish_holdout.csv")
-    ho_truth = pd.read_csv("fish_holdout.csv")["Weight"].values
-    ho_mse = mean_squared_error(ho_truth, ho_predictions)
-    print(ho_mse)
-######
+    ho_mse = mean_squared_error(y_truth, predictions)
+    r2_score = r2_score(y_truth, predictions)
 
+    print(y_truth)
+    print("PREDICTIONS:")
+    print(predictions)
+    print("_______ Score Metrics _______")
+    print("MSE:", ho_mse)
+    print("r2_score:", r2_score)
+    print("_____________________________")
+
+
+# ===================== Test fish_holdout.csv =====================#
+#    from sklearn.metrics import mean_squared_error
+#    ho_predictions = predict_from_csv("fish_holdout.csv")
+#    ho_truth = pd.read_csv("fish_holdout.csv")["Weight"].values
+#    ho_mse = mean_squared_error(ho_truth, ho_predictions)
+#    print(ho_mse)
