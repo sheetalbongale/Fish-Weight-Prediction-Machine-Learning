@@ -12,6 +12,8 @@ scikit-learn = "*"
 joblib = "*"
 nb-black = "*"
 matplotlib = "*"
+seaborn = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.7"
